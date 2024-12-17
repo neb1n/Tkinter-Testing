@@ -1,0 +1,69 @@
+from tkinter import *
+
+root = Tk()
+#!center
+w = 700
+h = 400
+ws = root.winfo_screenwidth()
+hs = root.winfo_screenheight()
+x=(ws/2)-(w/2)
+y=(hs/2)-(h/2)
+root.geometry("%dx%d+%d+%d"%(w,h,x,y))
+#lowkey forgot about this code so i just copy and pasted it from my other project
+#you the real mvp
+
+#!looks
+root.title("Cipher Converter")
+root.configure(bg="slateblue2")
+#i need a new paint palette
+
+#like a bunch of things that make sense tbf
+inputbox_inittext = Entry(root, width = 30, font = ("Arial 12 bold"), fg = "black", bg = "slateblue1", justify="center")
+output_label = Label(root, text="Input your normal text", font=("Arial 15"), pady=9, fg="purple", bg="slateblue2", justify="center")
+inputbox_shift = Entry(root, width = 30, font = ("Arial 12 bold"), fg = "black", bg = "slateblue1", justify="center")
+shift_label = Label(root, text="Input the number to shift by", font=("Arial 15"), pady=9, fg="purple", bg="slateblue2", justify="center")
+
+n = 0
+plaintext = ""
+
+def encrypt_text(plaintext,n):
+
+    ans = ""
+    # tell me to iterate one more time im quitting
+    for i in range(len(plaintext)):
+        ch = plaintext[i]
+        
+        # i should not have to explain this to you man :(
+        # if i should if there's a space (there might also be a space)
+        if ch==" ":
+            ans+=" "
+        # what if i made it uppercase
+        elif (ch.isupper()):
+            ans += chr((ord(ch) + n-65) % 26 + 65)
+        # what if it wasn't :man_looking_shocked_emoji:
+        else:
+            ans += chr((ord(ch) + n-97) % 26 + 97)
+    #i did so much maths for this and did one google search to find a dude that explained it in like 2 minutes
+    return ans
+
+def convert():
+    plaintext = inputbox_inittext.get()
+    n = int(inputbox_shift.get())
+    #^hahahahaha string no more nebin(+febin) 1 - 0 python
+    root.withdraw()
+    print("Plain Text is : " + plaintext)
+    print("Shift is : " + str(n))
+    print("Final Text is : " + encrypt_text(plaintext,n))
+    #actually so proud of myself
+
+
+start_button = Button(root, text="Convert", font=("Arial 15"), width=20, pady=20, bg="mediumpurple1", command = convert)
+
+#gridgridgridgridgrid with a side of grids
+start_button.grid(column = 1, row = 3)
+inputbox_inittext.grid(column = 2, row = 1)
+output_label.grid(column = 1, row = 1)
+inputbox_shift.grid(column = 2, row = 2)
+shift_label.grid(column = 1, row = 2)
+
+root.mainloop()
