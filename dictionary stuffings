@@ -1,0 +1,42 @@
+from tkinter import *
+
+root = Tk()
+
+#!centering
+w = 300
+h = 300
+ws = root.winfo_screenwidth()
+hs = root.winfo_screenheight()
+x=(ws/2)-(w/2)
+y=(hs/2)-(h/2)
+root.geometry("%dx%d+%d+%d"%(w,h,x,y))
+
+#!looks
+root.title("Dictionary")
+root.configure(bg="slateblue2")
+
+inputbox_entry = Entry(root, width = 30, font = ("Arial 12 bold"), fg = "black", bg = "slateblue1", justify="center")
+output_label = Label(root, text=" ", font=("Arial 15"), fg="black", bg="slateblue2", justify="center")
+
+def entry():
+    keyterms={
+    "MAR":"Memory Address Register",
+    "MDR":"Memory Data Register",
+    "CIR":"Current Instructions Register",
+    "ACC":"Accumulator",
+    "PC":"Program Counter",
+    }
+    if inputbox_entry =! "":
+        acro = str(inputbox_entry.get())
+        output_label.config(text = keyterms[acro])
+    else:
+        print("You're stupid")
+        root.withdraw()
+
+enter_button = Button(root, text="Enter", font=("Arial 15"), width=20, pady=20, bg="mediumpurple1", command = entry)
+
+inputbox_entry.grid(column = 1, row = 1)
+enter_button.grid(column = 1, row = 2)
+output_label.grid(column = 1, row = 3)
+
+root.mainloop()
