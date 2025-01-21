@@ -1,22 +1,40 @@
 from tkinter import *
 
-root = Tk()
+menu = Tk()
+revision = Tk()
+creation = Tk()
+
+
 
 #!centering
 w = 300
 h = 300
-ws = root.winfo_screenwidth()
-hs = root.winfo_screenheight()
+ws = revision.winfo_screenwidth()
+hs = revision.winfo_screenheight()
 x=(ws/2)-(w/2)
 y=(hs/2)-(h/2)
-root.geometry("%dx%d+%d+%d"%(w,h,x,y))
+revision.geometry("%dx%d+%d+%d"%(w,h,x,y))
+creation.geometry("%dx%d+%d+%d"%(w,h,x,y))
+menu.geometry("%dx%d+%d+%d"%(w,h,x,y))
 
 #!looks
-root.title("Dictionary")
-root.configure(bg="slateblue2")
+revision.title("Dictionary")
+revision.configure(bg="slateblue2")
+creation.title("Creation")
+creation.configure(bg="slateblue2")
+menu.title("Menu")
+menu.configure(bg="slateblue2")
+ 
+#revision tab
+inputbox_entry = Entry(revision, width = 30, font = ("Arial 12 bold"), fg = "black", bg = "slateblue1", justify="center")
+output_label = Label(revision, text=" ", font=("Arial 15"), fg="black", bg="slateblue2", justify="center")
 
-inputbox_entry = Entry(root, width = 30, font = ("Arial 12 bold"), fg = "black", bg = "slateblue1", justify="center")
-output_label = Label(root, text=" ", font=("Arial 15"), fg="black", bg="slateblue2", justify="center")
+#creation tab
+word_entry = Entry(creation, width = 30, font = ("Arial 12 bold"), fg = "black", bg = "slateblue1", justify="center")
+definition_entry = Entry(creation, width = 30, font = ("Arial 12 bold"), fg = "black", bg = "slateblue1", justify="center")
+
+def revision_tab():
+    revision.focus_force()
 
 def entry():
     keyterms={
@@ -26,17 +44,37 @@ def entry():
     "ACC":"Accumulator",
     "PC":"Program Counter",
     }
-    if inputbox_entry =! "":
+    if inputbox_entry != "":
         acro = str(inputbox_entry.get())
         output_label.config(text = keyterms[acro])
     else:
         print("You're stupid")
-        root.withdraw()
+        revision.withdraw()
 
-enter_button = Button(root, text="Enter", font=("Arial 15"), width=20, pady=20, bg="mediumpurple1", command = entry)
+def submit():
+    if word_entry == "":
+        print("Enter a word to submit")
+    elif definition_entry == "":
+        print("Enter a definition to submit")
+    else:
+        word = str(word_entry.get())
+        definition = str(definition_entry.get())
+        print("Saved")
+
+enter_button = Button(revision, text="Enter", font=("Arial 15"), width=20, pady=20, bg="mediumpurple1", command = entry)
+submit_button = Button(creation, text="Submit", font=("Arial 15"), width=20, pady=20, bg="mediumpurple1", command = submit)
+revision_button = Button(menu, text="Revision", font=("Arial 15"), width=20, pady=20, bg="mediumpurple1", command = revision_tab)
+
 
 inputbox_entry.grid(column = 1, row = 1)
 enter_button.grid(column = 1, row = 2)
 output_label.grid(column = 1, row = 3)
 
-root.mainloop()
+word_entry.grid(column=1, row = 1)
+definition_entry.grid(column = 1, row = 2)
+submit_button.grid(column = 1, row = 3)
+
+revision_button.grid(column =1, row = 1)
+
+revision.mainloop()
+creation.mainloop()
