@@ -1,2 +1,2 @@
 # Tkinter-Testing
-I like do coding things sometimes
+All things tkinter based that took me off the ground working with logic.
